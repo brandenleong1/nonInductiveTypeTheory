@@ -1,0 +1,9 @@
+name = "non-inductive-type-theory"
+defaultTargets = ["Constructs"]
+testDriver = "Test"
+
+[[lean_lib]]
+name = "Constructs"
+
+[[lean_lib]]
+name = "Test"
