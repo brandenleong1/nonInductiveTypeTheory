@@ -13,6 +13,12 @@ private def Five  : Nat.{0} := Nat.Succ Four
 private def Six   : Nat.{0} := Nat.Succ Five
 
 -- Computation on Nat
+example : Nat.Pred Nat.Zero = Nat.Zero := rfl
+example : Nat.Pred One = Nat.Zero := rfl
+example : Nat.Pred Two = One := rfl
+example : Nat.Pred Three = Two := rfl
+example : Nat.Pred Six = Five := rfl
+
 example : Nat.Add  Two   Three = Five := rfl
 example : Nat.Add  Three Two   = Five := rfl
 example : Nat.Mult Two   Three = Six  := rfl
