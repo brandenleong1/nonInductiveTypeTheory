@@ -2,6 +2,8 @@ import Constructs.Option
 
 namespace NonInductiveTypeTheory
 
+namespace OptionTest
+
 
 -- Construction
 example {A C : Type} (c : C) (onA : A → C) :
@@ -31,5 +33,7 @@ example {A B : Type} (f : A → Option B) :
 example {A B : Type} (f : A → Option B) (a : A) :
     Option.bind f (Option.some a) = f a := rfl
 
+
+end OptionTest
 
 end NonInductiveTypeTheory

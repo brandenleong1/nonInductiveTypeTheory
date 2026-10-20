@@ -2,6 +2,8 @@ import Constructs.Unit
 
 namespace NonInductiveTypeTheory
 
+namespace UnitTest
+
 
 -- Construction
 example {C : Type} (c : C) :
@@ -11,5 +13,7 @@ example {C : Type} (c : C) :
 example {C D : Type} (f : C → D) (c : C) :
     Unit.unit D (f (Unit.unit C c)) = f c := rfl
 
+
+end UnitTest
 
 end NonInductiveTypeTheory
