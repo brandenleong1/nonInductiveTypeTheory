@@ -10,10 +10,10 @@ namespace Nat
 
 def Zero : Nat := λ _C _s z => z
 
-def Succ (n : Nat) : Nat :=
+def succ (n : Nat) : Nat :=
   λ C s z => s (n C s z)
 
-def Pred (n : Nat) : Nat :=
+def pred (n : Nat) : Nat :=
   λ C s z =>
     let Pair : Type u := (C → C → C) → C
     let pair : C → C → Pair :=
@@ -29,10 +29,10 @@ def Pred (n : Nat) : Nat :=
       n Pair step (pair z z)
     get1 final_state
 
-def Add (m : Nat) (n : Nat) : Nat :=
+def add (m : Nat) (n : Nat) : Nat :=
   λ C s z => m C s (n C s z)
 
-def Mult (m : Nat) (n : Nat) : Nat :=
+def mult (m : Nat) (n : Nat) : Nat :=
   λ C s z => m C (n C s) z
 
 end Nat

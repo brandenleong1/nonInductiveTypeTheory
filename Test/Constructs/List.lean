@@ -46,7 +46,7 @@ example {A : Type} :
 
 example {A : Type} (a : A) (list : List A) :
     List.length (List.cons a list) =
-      Nat.Succ (List.length list) := rfl
+      Nat.succ (List.length list) := rfl
 
 -- Head and Last
 example {A : Type} :
