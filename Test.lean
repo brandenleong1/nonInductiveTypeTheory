@@ -5,4 +5,5 @@ import Test.Constructs.Nat
 import Test.Constructs.Option
 import Test.Constructs.Pair
 import Test.Constructs.Sum
+import Test.Constructs.Tree
 import Test.Constructs.Unit

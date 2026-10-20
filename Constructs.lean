@@ -5,4 +5,5 @@ import Constructs.Nat
 import Constructs.Option
 import Constructs.Pair
 import Constructs.Sum
+import Constructs.Tree
 import Constructs.Unit
