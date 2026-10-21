@@ -1,3 +1,4 @@
+import Constructs.Bool
 import Constructs.Nat
 
 namespace NonInductiveTypeTheory
@@ -50,6 +51,32 @@ def size_nodes {A : Type u} (tree : Tree A) : Nat :=
 
 def mirror {A : Type u} (tree : Tree A) : Tree A :=
   λ C leaf branch => tree C leaf (λ left right => branch right left)
+
+def any {A : Type u} (cond : A → Bool) (tree : Tree A) : Bool :=
+  λ C t f =>
+    let State : Type u := C → C
+    let eval_leaf : A → State :=
+      λ a =>
+        λ c => (cond a) C t c
+    let eval_branch : State → State → State :=
+      λ branch0 branch1 =>
+        λ c => branch0 (branch1 c)
+    let final_state : State :=
+      tree State eval_leaf eval_branch
+    final_state f
+
+def all {A : Type u} (cond : A → Bool) (tree : Tree A) : Bool :=
+  λ C t f =>
+    let State : Type u := C → C
+    let eval_leaf : A → State :=
+      λ a =>
+        λ c => (cond a) C c f
+    let eval_branch : State → State → State :=
+      λ branch0 branch1 =>
+        λ c => branch0 (branch1 c)
+    let final_state : State :=
+      tree State eval_leaf eval_branch
+    final_state t
 
 end Tree
 

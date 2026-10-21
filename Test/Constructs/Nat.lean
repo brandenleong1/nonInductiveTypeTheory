@@ -24,6 +24,12 @@ example : Nat.add  Three Two   = Five := rfl
 example : Nat.mult Two   Three = Six  := rfl
 example : Nat.mult Three Two   = Six  := rfl
 
+-- Zero Checking
+example : Nat.is_zero Nat.Zero = Bool.True := rfl
+
+example (n : Nat.{0}) :
+    Nat.is_zero (Nat.succ n) = Bool.False := rfl
+
 -- Nat Laws
 example (n : Nat.{0}) : Nat.add Nat.Zero n = n := rfl
 example (n : Nat.{0}) : Nat.add n Nat.Zero = n := rfl

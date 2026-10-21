@@ -1,3 +1,5 @@
+import Constructs.Bool
+
 namespace NonInductiveTypeTheory
 
 
@@ -34,6 +36,9 @@ def add (m : Nat) (n : Nat) : Nat :=
 
 def mult (m : Nat) (n : Nat) : Nat :=
   λ C s z => m C (n C s) z
+
+def is_zero (n : Nat) : Bool :=
+  λ C t f => n C (λ _ => f) t
 
 end Nat
 

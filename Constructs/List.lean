@@ -1,3 +1,4 @@
+import Constructs.Bool
 import Constructs.Nat
 import Constructs.Option
 
@@ -68,6 +69,18 @@ def tail {A : Type u} (list : List A) : List A :=
     let final_state : Pair :=
       list Pair step (pair empty empty)
     get1 final_state
+
+def is_empty {A : Type u} (list : List A) : Bool :=
+  λ C t f => list C (λ _ _ => f) t
+
+def filter {A : Type u} (f : A → Bool) (list : List A) : List A :=
+  λ C combine empty => list C (λ a c => ((f a) C (combine a c) (c))) empty
+
+def any {A : Type u} (cond : A → Bool) (list : List A) : Bool :=
+  λ C t f => list C (λ a c => (cond a) C t c) f
+
+def all {A : Type u} (cond : A → Bool) (list : List A) : Bool :=
+  λ C t f => list C (λ a c => (cond a) C c f) t
 
 end List
 

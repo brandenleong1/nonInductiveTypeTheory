@@ -91,6 +91,37 @@ example {A : Type} (a b c : A) :
         (List.cons a (List.cons b (List.cons c List.nil))) =
       List.cons b (List.cons c List.nil) := rfl
 
+-- Emptiness
+example {A : Type} :
+    List.is_empty (List.nil : List A) = Bool.True := rfl
+
+example {A : Type} (a : A) (list : List A) :
+    List.is_empty (List.cons a list) = Bool.False := rfl
+
+-- Filtering
+example {A : Type} (list : List A) :
+    List.filter (λ _ => Bool.True) list = list := rfl
+
+example {A : Type} (a b : A) :
+    List.filter (λ _ => Bool.False)
+        (List.cons a (List.cons b List.nil)) =
+      List.nil := rfl
+
+-- Quantifiers
+example {A : Type} (cond : A → Bool) :
+    List.any cond List.nil = Bool.False := rfl
+
+example {A : Type} (cond : A → Bool) (a : A) (list : List A) :
+    List.any cond (List.cons a list) =
+      Bool.or (cond a) (List.any cond list) := rfl
+
+example {A : Type} (cond : A → Bool) :
+    List.all cond List.nil = Bool.True := rfl
+
+example {A : Type} (cond : A → Bool) (a : A) (list : List A) :
+    List.all cond (List.cons a list) =
+      Bool.and (cond a) (List.all cond list) := rfl
+
 
 end ListTest
 

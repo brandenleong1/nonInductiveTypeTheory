@@ -73,6 +73,21 @@ example {A B : Type} (f : A → B) (tree : Tree A) :
     Tree.mirror (Tree.map f tree) =
       Tree.map f (Tree.mirror tree) := rfl
 
+-- Quantifiers
+example {A : Type} (cond : A → Bool) (a : A) :
+    Tree.any cond (Tree.leaf a) = cond a := rfl
+
+example {A : Type} (cond : A → Bool) (left right : Tree A) :
+    Tree.any cond (Tree.branch left right) =
+      Bool.or (Tree.any cond left) (Tree.any cond right) := rfl
+
+example {A : Type} (cond : A → Bool) (a : A) :
+    Tree.all cond (Tree.leaf a) = cond a := rfl
+
+example {A : Type} (cond : A → Bool) (left right : Tree A) :
+    Tree.all cond (Tree.branch left right) =
+      Bool.and (Tree.all cond left) (Tree.all cond right) := rfl
+
 
 end TreeTest
 

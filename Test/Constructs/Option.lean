@@ -33,6 +33,13 @@ example {A B : Type} (f : A → Option B) :
 example {A B : Type} (f : A → Option B) (a : A) :
     Option.bind f (Option.some a) = f a := rfl
 
+-- Presence Checking
+example {A : Type} :
+    Option.is_some (Option.none : Option A) = Bool.False := rfl
+
+example {A : Type} (a : A) :
+    Option.is_some (Option.some a) = Bool.True := rfl
+
 
 end OptionTest
 

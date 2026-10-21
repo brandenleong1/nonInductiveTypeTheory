@@ -1,3 +1,5 @@
+import Constructs.Bool
+
 namespace NonInductiveTypeTheory
 
 
@@ -22,6 +24,9 @@ def map {A B : Type u} (f : A → B) (o : Option A) : Option B :=
 def bind {A B : Type u} (f : A → Option B) (o : Option A) : Option B :=
   λ C c onB =>
     o C c (λ a => (f a) C c onB)
+
+def is_some {A : Type u} (o : Option A) : Bool :=
+  λ C t f => o C f (λ _ => t)
 
 end Option
 
