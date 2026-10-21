@@ -30,6 +30,22 @@ example : Nat.is_zero Nat.Zero = Bool.True := rfl
 example (n : Nat.{0}) :
     Nat.is_zero (Nat.succ n) = Bool.False := rfl
 
+-- Parity
+example : Nat.is_even Nat.Zero = Bool.True := rfl
+example : Nat.is_even One = Bool.False := rfl
+example : Nat.is_even Two = Bool.True := rfl
+example : Nat.is_even Three = Bool.False := rfl
+example : Nat.is_even Six = Bool.True := rfl
+
+example : Nat.is_odd Nat.Zero = Bool.False := rfl
+example : Nat.is_odd One = Bool.True := rfl
+example : Nat.is_odd Two = Bool.False := rfl
+example : Nat.is_odd Three = Bool.True := rfl
+example : Nat.is_odd Six = Bool.False := rfl
+
+example (n : Nat.{0}) :
+    Nat.is_odd n = Bool.not (Nat.is_even n) := rfl
+
 -- Nat Laws
 example (n : Nat.{0}) : Nat.add Nat.Zero n = n := rfl
 example (n : Nat.{0}) : Nat.add n Nat.Zero = n := rfl

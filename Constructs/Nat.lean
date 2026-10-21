@@ -40,6 +40,38 @@ def mult (m : Nat) (n : Nat) : Nat :=
 def is_zero (n : Nat) : Bool :=
   λ C t f => n C (λ _ => f) t
 
+def is_even (n : Nat) : Bool :=
+  λ C t f =>
+    let Pair : Type u := (C → C → C) → C
+    let pair : C → C → Pair :=
+      λ a b select => select a b
+    let get0 : Pair → C :=
+      λ pair => pair (λ a _ => a)
+    let get1 : Pair → C :=
+      λ pair => pair (λ _ b => b)
+    let step : Pair → Pair :=
+      λ state =>
+        pair (get1 state) (get0 state)
+    let final_state : Pair :=
+      n Pair step (pair t f)
+    get0 final_state
+
+def is_odd (n : Nat) : Bool :=
+  λ C t f =>
+    let Pair : Type u := (C → C → C) → C
+    let pair : C → C → Pair :=
+      λ a b select => select a b
+    let get0 : Pair → C :=
+      λ pair => pair (λ a _ => a)
+    let get1 : Pair → C :=
+      λ pair => pair (λ _ b => b)
+    let step : Pair → Pair :=
+      λ state =>
+        pair (get1 state) (get0 state)
+    let final_state : Pair :=
+      n Pair step (pair f t)
+    get0 final_state
+
 end Nat
 
 
