@@ -95,6 +95,19 @@ def find {A : Type u} (cond : A → Bool) (tree : Tree A) : Option A :=
       tree State eval_leaf eval_branch
     final_state c
 
+def count {A : Type u} (cond : A → Bool) (tree : Tree A) : Nat :=
+  λ C s z =>
+    let State : Type u := C → C
+    let eval_leaf : A → State :=
+      λ a =>
+        λ c => (cond a) C (s c) c
+    let eval_branch : State → State → State :=
+      λ branch0 branch1 =>
+        λ c => branch0 (branch1 c)
+    let final_state : State :=
+      tree State eval_leaf eval_branch
+    final_state z
+
 end Tree
 
 

@@ -125,6 +125,31 @@ example {A : Type} (a b c : A) :
           (Tree.branch (Tree.leaf b) (Tree.leaf c))) =
       Option.some a := rfl
 
+-- Counting
+example {A : Type} (a : A) :
+    Tree.count (λ _ => Bool.True) (Tree.leaf a) =
+      One := rfl
+
+example {A : Type} (a b c : A) :
+    Tree.count (λ _ => Bool.False)
+        (Tree.branch (Tree.leaf a)
+          (Tree.branch (Tree.leaf b) (Tree.leaf c))) =
+      Nat.Zero := rfl
+
+example {A : Type} (a b c : A) :
+    Tree.count (λ _ => Bool.True)
+        (Tree.branch (Tree.leaf a)
+          (Tree.branch (Tree.leaf b) (Tree.leaf c))) =
+      Three := rfl
+
+example {A : Type} (a b c : A) :
+    Tree.count (λ _ => Bool.True)
+        (Tree.branch (Tree.leaf a)
+          (Tree.branch (Tree.leaf b) (Tree.leaf c))) =
+      Tree.size_leaves
+        (Tree.branch (Tree.leaf a)
+          (Tree.branch (Tree.leaf b) (Tree.leaf c))) := rfl
+
 
 end TreeTest
 

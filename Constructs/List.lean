@@ -91,6 +91,9 @@ def find {A : Type u} (cond : A → Bool) (list : List A) : Option A :=
 def find_last {A : Type u} (cond : A → Bool) (list : List A) : Option A :=
   find cond (reverse list)
 
+def count {A : Type u} (cond : A → Bool) (list : List A) : Nat :=
+  λ C s z => list C (λ a c => (cond a) C (s c) c) z
+
 end List
 
 

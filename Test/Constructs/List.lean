@@ -5,6 +5,10 @@ namespace NonInductiveTypeTheory
 namespace ListTest
 
 
+private def One   : Nat.{0} := Nat.succ Nat.Zero
+private def Two   : Nat.{0} := Nat.succ One
+private def Three : Nat.{0} := Nat.succ Two
+
 -- Construction and Folding
 example {A C : Type} (combine : A → C → C) (empty : C) :
     List.nil C combine empty = empty := rfl
@@ -172,6 +176,29 @@ example {A : Type} (a b c : A) :
     List.find_last (λ _ => Bool.True)
         (List.cons a (List.cons b (List.cons c List.nil))) =
       Option.some c := rfl
+
+-- Counting
+example {A : Type} :
+    List.count (λ _ => Bool.True) (List.nil : List A) =
+      Nat.Zero := rfl
+
+example {A : Type} (a : A) :
+    List.count (λ _ => Bool.True) (List.cons a List.nil) =
+      One := rfl
+
+example {A : Type} (a b c : A) :
+    List.count (λ _ => Bool.False)
+        (List.cons a (List.cons b (List.cons c List.nil))) =
+      Nat.Zero := rfl
+
+example {A : Type} (a b c : A) :
+    List.count (λ _ => Bool.True)
+        (List.cons a (List.cons b (List.cons c List.nil))) =
+      Three := rfl
+
+example {A : Type} (list : List A) :
+    List.count (λ _ => Bool.True) list =
+      List.length list := rfl
 
 
 end ListTest
