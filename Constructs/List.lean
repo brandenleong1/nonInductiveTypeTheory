@@ -82,6 +82,12 @@ def any {A : Type u} (cond : A → Bool) (list : List A) : Bool :=
 def all {A : Type u} (cond : A → Bool) (list : List A) : Bool :=
   λ C t f => list C (λ a c => (cond a) C c f) t
 
+def find {A : Type u} (cond : A → Bool) (list : List A) : Option A :=
+  λ C c onA => list C (λ a c => (cond a) C (onA a) c) c
+
+def find_last {A : Type u} (cond : A → Bool) (list : List A) : Option A :=
+  find cond (reverse list)
+
 end List
 
 

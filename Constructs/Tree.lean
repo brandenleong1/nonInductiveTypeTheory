@@ -1,5 +1,6 @@
 import Constructs.Bool
 import Constructs.Nat
+import Constructs.Option
 
 namespace NonInductiveTypeTheory
 
@@ -77,6 +78,19 @@ def all {A : Type u} (cond : A → Bool) (tree : Tree A) : Bool :=
     let final_state : State :=
       tree State eval_leaf eval_branch
     final_state t
+
+def find {A : Type u} (cond : A → Bool) (tree : Tree A) : Option A :=
+  λ C c onA =>
+    let State : Type u := C → C
+    let eval_leaf : A → State :=
+      λ a =>
+        λ c => (cond a) C (onA a) c
+    let eval_branch : State → State → State :=
+      λ branch0 branch1 =>
+        λ c => branch0 (branch1 c)
+    let final_state : State :=
+      tree State eval_leaf eval_branch
+    final_state c
 
 end Tree
 

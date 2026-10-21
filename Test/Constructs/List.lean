@@ -122,6 +122,38 @@ example {A : Type} (cond : A → Bool) (a : A) (list : List A) :
     List.all cond (List.cons a list) =
       Bool.and (cond a) (List.all cond list) := rfl
 
+-- Searching
+example {A : Type} (cond : A → Bool) :
+    List.find cond List.nil = Option.none := rfl
+
+example {A : Type} (a b : A) :
+    List.find (λ _ => Bool.False)
+        (List.cons a (List.cons b List.nil)) =
+      Option.none := rfl
+
+example {A : Type} (a : A) :
+    List.find (λ _ => Bool.True) (List.cons a List.nil) =
+      Option.some a := rfl
+
+example {A : Type} (a b c : A) :
+    List.find (λ _ => Bool.True)
+        (List.cons a (List.cons b (List.cons c List.nil))) =
+      Option.some a := rfl
+
+example {A : Type} (a b : A) :
+    List.find_last (λ _ => Bool.False)
+        (List.cons a (List.cons b List.nil)) =
+      Option.none := rfl
+
+example {A : Type} (a : A) :
+    List.find_last (λ _ => Bool.True) (List.cons a List.nil) =
+      Option.some a := rfl
+
+example {A : Type} (a b c : A) :
+    List.find_last (λ _ => Bool.True)
+        (List.cons a (List.cons b (List.cons c List.nil))) =
+      Option.some c := rfl
+
 
 end ListTest
 

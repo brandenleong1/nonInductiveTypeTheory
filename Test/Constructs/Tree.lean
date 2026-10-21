@@ -88,6 +88,27 @@ example {A : Type} (cond : A → Bool) (left right : Tree A) :
     Tree.all cond (Tree.branch left right) =
       Bool.and (Tree.all cond left) (Tree.all cond right) := rfl
 
+-- Searching
+example {A : Type} (a : A) :
+    Tree.find (λ _ => Bool.False) (Tree.leaf a) =
+      Option.none := rfl
+
+example {A : Type} (a : A) :
+    Tree.find (λ _ => Bool.True) (Tree.leaf a) =
+      Option.some a := rfl
+
+example {A : Type} (a b c : A) :
+    Tree.find (λ _ => Bool.False)
+        (Tree.branch (Tree.leaf a)
+          (Tree.branch (Tree.leaf b) (Tree.leaf c))) =
+      Option.none := rfl
+
+example {A : Type} (a b c : A) :
+    Tree.find (λ _ => Bool.True)
+        (Tree.branch (Tree.leaf a)
+          (Tree.branch (Tree.leaf b) (Tree.leaf c))) =
+      Option.some a := rfl
+
 
 end TreeTest
 
