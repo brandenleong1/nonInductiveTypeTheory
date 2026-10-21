@@ -21,6 +21,9 @@ def cons {A : Type u} (a : A) (list : List A) : List A :=
 def map {A B : Type u} (f : A → B) (list : List A) : List B :=
   λ C combine empty => list C (λ a => combine (f a)) empty
 
+def bind {A B : Type u} (f : A → List B) (list : List A) : List B :=
+  λ C combine empty => list C (λ a => (f a) C combine) empty
+
 def append {A : Type u} (list_from : List A) (list_to : List A) : List A :=
   λ C combine empty => list_from C combine (list_to C combine empty)
 

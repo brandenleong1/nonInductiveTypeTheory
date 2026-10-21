@@ -24,6 +24,9 @@ def fold {A C : Type u} (tree : Tree A) (process_leaf : A → C) (process_branch
 def map {A B : Type u} (f : A → B) (tree : Tree A) : Tree B :=
   λ C leaf branch => tree C (λ a => leaf (f a)) branch
 
+def bind {A B : Type u} (f : A → Tree B) (tree : Tree A) : Tree B :=
+  λ C leaf branch => tree C (λ a => (f a) C leaf branch) branch
+
 def size_leaves {A : Type u} (tree : Tree A) : Nat :=
   λ C s z =>
     let State : Type u := C → C

@@ -39,6 +39,22 @@ example {A B C : Type} (f : A → B) (g : B → C) (tree : Tree A) :
     Tree.map g (Tree.map f tree) =
       Tree.map (λ a => g (f a)) tree := rfl
 
+-- Binding
+example {A B : Type} (f : A → Tree B) (a : A) :
+    Tree.bind f (Tree.leaf a) = f a := rfl
+
+example {A B : Type} (f : A → Tree B) (left right : Tree A) :
+    Tree.bind f (Tree.branch left right) =
+      Tree.branch (Tree.bind f left) (Tree.bind f right) := rfl
+
+example {A : Type} (tree : Tree A) :
+    Tree.bind Tree.leaf tree = tree := rfl
+
+example {A B C : Type} (f : A → Tree B) (g : B → Tree C)
+    (tree : Tree A) :
+    Tree.bind g (Tree.bind f tree) =
+      Tree.bind (λ a => Tree.bind g (f a)) tree := rfl
+
 -- Size
 example {A : Type} (a : A) :
     Tree.size_leaves (Tree.leaf a) = One := rfl

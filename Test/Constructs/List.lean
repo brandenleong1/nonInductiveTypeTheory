@@ -25,6 +25,25 @@ example {A B : Type} (f : A → B) (a : A) (list : List A) :
 example {A : Type} (list : List A) :
     List.map (λ a => a) list = list := rfl
 
+-- Binding
+example {A B : Type} (f : A → List B) :
+    List.bind f List.nil = List.nil := rfl
+
+example {A B : Type} (f : A → List B) (a : A) (list : List A) :
+    List.bind f (List.cons a list) =
+      List.append (f a) (List.bind f list) := rfl
+
+example {A B : Type} (f : A → List B) (a : A) :
+    List.bind f (List.cons a List.nil) = f a := rfl
+
+example {A : Type} (list : List A) :
+    List.bind (λ a => List.cons a List.nil) list = list := rfl
+
+example {A B C : Type} (f : A → List B) (g : B → List C)
+    (list : List A) :
+    List.bind g (List.bind f list) =
+      List.bind (λ a => List.bind g (f a)) list := rfl
+
 -- Appending
 example {A : Type} (list : List A) :
     List.append List.nil list = list := rfl
