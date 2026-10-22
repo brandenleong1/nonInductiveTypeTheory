@@ -150,6 +150,63 @@ example {A : Type} (a b c : A) :
         (Tree.branch (Tree.leaf a)
           (Tree.branch (Tree.leaf b) (Tree.leaf c))) := rfl
 
+-- Extremal Leaves
+example {A : Type} (a : A) :
+    Tree.leftmost (Tree.leaf a) = a := rfl
+
+example {A : Type} (a : A) :
+    Tree.rightmost (Tree.leaf a) = a := rfl
+
+example {A : Type} (a b c : A) :
+    Tree.leftmost
+        (Tree.branch (Tree.leaf a)
+          (Tree.branch (Tree.leaf b) (Tree.leaf c))) =
+      a := rfl
+
+example {A : Type} (a b c : A) :
+    Tree.rightmost
+        (Tree.branch (Tree.leaf a)
+          (Tree.branch (Tree.leaf b) (Tree.leaf c))) =
+      c := rfl
+
+example {A : Type} (tree : Tree A) :
+    Tree.leftmost (Tree.mirror tree) =
+      Tree.rightmost tree := rfl
+
+example {A : Type} (tree : Tree A) :
+    Tree.rightmost (Tree.mirror tree) =
+      Tree.leftmost tree := rfl
+
+-- Conversion to List
+example {A : Type} (a : A) :
+    Tree.to_list (Tree.leaf a) =
+      List.cons a List.nil := rfl
+
+example {A : Type} (a b c : A) :
+    Tree.to_list
+        (Tree.branch (Tree.leaf a)
+          (Tree.branch (Tree.leaf b) (Tree.leaf c))) =
+      List.cons a (List.cons b (List.cons c List.nil)) := rfl
+
+example {A : Type} (a b c : A) :
+    List.length
+        (Tree.to_list
+          (Tree.branch (Tree.leaf a)
+            (Tree.branch (Tree.leaf b) (Tree.leaf c)))) =
+      Tree.size_leaves
+        (Tree.branch (Tree.leaf a)
+          (Tree.branch (Tree.leaf b) (Tree.leaf c))) := rfl
+
+example {A : Type} (a b c : A) :
+    Tree.to_list
+        (Tree.mirror
+          (Tree.branch (Tree.leaf a)
+            (Tree.branch (Tree.leaf b) (Tree.leaf c)))) =
+      List.reverse
+        (Tree.to_list
+          (Tree.branch (Tree.leaf a)
+            (Tree.branch (Tree.leaf b) (Tree.leaf c)))) := rfl
+
 
 end TreeTest
 

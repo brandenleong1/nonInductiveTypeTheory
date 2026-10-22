@@ -1,4 +1,5 @@
 import Constructs.Bool
+import Constructs.List
 import Constructs.Nat
 import Constructs.Option
 
@@ -107,6 +108,25 @@ def count {A : Type u} (cond : A → Bool) (tree : Tree A) : Nat :=
     let final_state : State :=
       tree State eval_leaf eval_branch
     final_state z
+
+def leftmost {A : Type u} (tree : Tree A) : A :=
+  tree A (λ a => a) (λ branch0 _branch1 => branch0)
+
+def rightmost {A : Type u} (tree : Tree A) : A :=
+  tree A (λ a => a) (λ _branch0 branch1 => branch1)
+
+def to_list {A : Type u} (tree : Tree A) : List A :=
+  λ C combine empty =>
+    let State : Type u := C → C
+    let eval_leaf : A -> State :=
+      λ a =>
+        λ c => (combine a) c
+    let eval_branch : State → State → State :=
+      λ branch0 branch1 =>
+        λ c => branch0 (branch1 c)
+    let final_state : State :=
+      tree State eval_leaf eval_branch
+    final_state empty
 
 end Tree
 
